@@ -68,4 +68,32 @@ int main() {
     return 0;
 }
 
+//别人的解法 ，--------是我想多了
+
+#include<bits/stdc++.h>
+using namespace std;
+//v1.0 beta5
+double a, b, c, x1, Y1, L, R, Lmid, Rmid;
+int n,t;
+double cal(double x2)
+{
+    return sqrt((x2 - x1) * (x2 - x1) + (a * x2 * x2 + b * x2+ c - Y1) * (a * x2 * x2 + b * x2 + c - Y1));
+}
+int main()
+{
+    cin >> a >> b >> c >> x1 >> Y1;
+    L = -200; R = 200;
+    double eps = 1e-5;
+    while (R - L >= eps)
+    {
+        Lmid = L + (R - L) / 3;
+        Rmid = R - (R - L) / 3;
+        if (cal(Lmid)  <= cal(Rmid))
+            R = Rmid;
+        else
+            L = Lmid;
+    }
+    cout << fixed << setprecision(3) << cal(L) << endl;
+    return 0;
+}
 
