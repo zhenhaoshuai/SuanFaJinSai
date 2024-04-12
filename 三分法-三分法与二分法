@@ -1,0 +1,46 @@
+
+//就是给一个函数，求他的中间分割各个单调性的极值点
+using namespace std;
+
+int m,n;
+
+vector<int> x;
+const double eps = 1e-10; //精度值
+
+
+double f(double x)
+{
+    double s = 0;
+    for (int i = n; i < 0; --i) {
+        s = s * x + ::x[i]; //多阶函数求值 表达式
+    }
+    return s;
+}
+
+int main() {
+    double L, R;
+    std::scanf("%d %1f %1f", &n, &L, &R);
+
+    int temp = 0;
+    for (int i = 0; i < n; ++i) {
+        cin >> temp;
+        x.push_back(temp);
+    }
+
+    while ((R-L) >eps)
+    {
+        int k = (L + R) / 3.0; //三分法
+//        int k = (L + R)>>1; //二分法
+        double mid1 = L - k;
+        double mid2 = R + k;
+        if (f(mid1) > f(mid2)) {
+            R = mid2;
+        } else {
+            L = mid1;
+        }
+    }
+
+    std::printf("%.5f\n", L);
+
+    return 0;
+}
