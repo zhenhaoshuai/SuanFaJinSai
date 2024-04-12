@@ -1,5 +1,7 @@
 using namespace std;
 
+//结题的关键就是通过将值转化成求点与点之间的半径关系
+
 int a,b,c;//抛物线各个次的系数 // y =a*x*x + b*x + c;
 pair<int, int> P;
 
@@ -65,3 +67,5 @@ int main() {
 
     return 0;
 }
+
+
