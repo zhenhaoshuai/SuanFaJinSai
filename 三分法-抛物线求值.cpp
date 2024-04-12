@@ -97,3 +97,51 @@ int main()
     return 0;
 }
 
+//------------------------------我的写法---------
+using namespace std;
+
+int a,b,c;//抛物线各个次的系数 // y =a*x*x + b*x + c;
+pair<int, int> P;
+
+const double eps = 1e-3;
+double x, y;
+
+/**
+ * 求点与点之间的半径值
+ * @param x
+ * @return
+ */
+double CirDistance(double x)
+{
+//    y = a * x * x + b * x + c;
+//    return std::sqrt(std::pow(::x-x,2)+std::pow(::y-y,2));
+    return sqrt((::x - x) * (::x - x) + (a * x * x + b * x+ c - y) * (a * x * x + b * x+ c - y));
+}
+
+int main() {
+    std::printf("请输入系数：\n");
+    std::scanf("%d %d %d", &a, &b, &c);
+    std::printf("请输入坐标：\n");
+    std::scanf("%1f %1f", &x, &y);
+
+    P = std::make_pair(x, y);
+    double L, R;
+    R = 200.00;
+    L = -200.00;
+
+
+    double MinDistance = 99999 ;
+    while ((R - L) >= eps) { //一步一步缩短原的半径
+        double Rmid = R - (R - L) / 3.0;
+        double Lmid = L + (R - L) / 3.0;
+        if (CirDistance(L) <= CirDistance(R)) { //这样也规避了 中间有多个极值的情况，都是谁大看谁，所以不管其中多个单调性
+            R = Rmid;
+        } else {
+            L = Lmid;
+        }
+    }
+
+    cout << "val is " << CirDistance(L) << endl;
+    return 0;
+}
+
