@@ -7,6 +7,9 @@
 #include <cmath>
 using namespace std;
 
+//   1 2 3 4 5
+// 0 1 2 3 4 5 6//位置长一点就避免了数组边界的问题
+
 int n = 5;//一个有5个航班号
 
 int D[20]{0};//存差分数组
