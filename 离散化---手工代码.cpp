@@ -30,7 +30,7 @@ int main(){
         datas[i].id = i;
     }
 
-    std::sort(datas, datas + n, cmp);
+    std::sort(datas + 1, datas + n + 1, cmp);//加1是因为我们存的时候是从1的位置存的
 
     //归位 。。。。能归位进行离散化的关键是 排序后，所有的数组元素都排序了，这样他就具备2个信息了，1.它原始id  2.他现在排序后的位置
     for (int i = 1; i <= n; ++i) {
