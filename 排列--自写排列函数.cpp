@@ -1,3 +1,5 @@
+//其实就是一个DFS 深度优先搜索问题
+
 #include<bits/stdc++.h>
 using namespace std;
 int a[20]={1,2,3,4,5,6,7,8,9,10,11,12,13};
