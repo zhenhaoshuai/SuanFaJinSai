@@ -31,7 +31,8 @@ void init()
 
     for (int i = 1; i < n; ++i) {
         for (int j = 1; j < m; ++j) {
-            sums[i][j] += sums[i][j - 1] + sums[i - 1][j] - sums[i - 1][j - 1];//就是定值的公式
+            //左+上 - 左上 + 自己
+            sums[i][j] += sums[i][j - 1] + sums[i - 1][j] - sums[i - 1][j - 1];//就是定值的公式 
         }
 
     }
