@@ -1,4 +1,5 @@
 //自己写失败了  想的太复杂了
+//我写的代码和这个是有相同的，但是它这个很巧妙的是，它使用不断地切换 source,buffer,target来实现我用很长的代码来实现的切换不同的分支
 
 #include <iostream>
 #include "vector"
@@ -220,31 +221,33 @@ int main(){
     return 0;
 }
 
-//----------机器人生成的-----
+//----------ChatGPT生成的-----
 
-#include <stdio.h>
- 
-// 移动汉诺塔的函数
-void move(char x, char y) {
-    printf("%c -> %c\n", x, y);
-}
- 
-// 递归实现汉诺塔
-void hanoi(int n, char x, char y, char z) {
-    if (n == 1) {
-        move(x, z);
-    } else {
-        hanoi(n - 1, x, z, y); // 将n-1个盘子从x移动到y  //像2叉树一样，只分左右，我想的太复杂了
-        move(x, z);            // 将最大的盘子从x移动到z
-        hanoi(n - 1, y, x, z); // 将n-1个盘子从y移动到z
+//我写的代码和这个是有相同的，但是它这个很巧妙的是，它使用不断地切换 source,buffer,target来实现我用很长的代码来实现的切换不同的分支
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int sum = 0, m;
+
+void hanoi(char x, char y, char z, int n) {  // 三个柱子 x、y、z
+    if (n == 1) {  // 最小问题
+        sum++;
+        if (sum == m)
+            cout << "#" << n << ": " << x << "->" << z << endl;
+    } else {  // 分治
+        hanoi(x, z, y, n - 1);  //(1) 先把 x 的 n-1 个小盘移到 y，然后把第 n 个大盘移到 z
+        sum++;
+        if (sum == m)
+            cout << "#" << n << ": " << x << "->" << z << endl;
+        hanoi(y, x, z, n - 1);  //(2) 把 y 的 n-1 个小盘移到 z
     }
 }
- 
+
 int main() {
     int n;
-    printf("输入汉诺塔的层数: ");
-    scanf("%d", &n);
-    printf("移动盘子的步骤:\n");
-    hanoi(n, 'X', 'Y', 'Z'); // 假设有三个柱子，分别是'X', 'Y', 和 'Z'
+    cin >> n >> m;
+    hanoi('A', 'B', 'C', n);
+    cout << sum << endl;
     return 0;
 }
