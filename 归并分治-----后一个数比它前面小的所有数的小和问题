@@ -1,1 +1,161 @@
+#include <iostream>
+#include "vector"
+#include <numeric>
+#include <cmath>
 
+//数组小和问题，
+//小和问题
+//        在一个数组中，每一个数左边比当前数小的数累加起来，叫做这个数组的小和。求一个数组的小和。
+//例子：
+//[1,3,4,2,5]
+//1左边比1小的数，没有；
+//3左边比3小的数，1；
+//4左边比4小的数，1、3；
+//2左边比2小的数，1；
+//5左边比5小的数，1、3、4、2；
+//所以小和为1+1+3+1+1+3+4+2=16
+
+//思路一：：：：：首先：我的思路，刚开始时，我们使用二叉树来解决，我们先根据大小将树构建并存下位置信息， 每个树节点我们存下它的位置信息，
+
+//本题要求思路：：：：归并排序思想
+
+const int N = 500;
+
+int n;//表示数组的长度
+int datas[N]{0};
+int aux_datas[N]{0};
+
+int mergeSum(int L, int Mid, int R)
+{
+    int sum = 0;//归并后的小和值
+    int i = L, j = Mid + 1, t = 0;
+
+    //合并前进行 出现次数寻找
+    //例如 [ 1 3 5 2 4 6 ] 中 左半边出现的次数分别为 0*2 3*1 5*0 右半边为 2*2 4*1 6*0 ，同时，左边的那个位置定下来后，排个序更加利于它来查找答案，左边那个位置出现的次数不会收到排序的影响
+    while ((i <= Mid) && (j <= R)) {
+        if (datas[i] <= datas[j]) {
+            sum += datas[i];
+            i++;
+        } else {
+            j++;
+        }
+    }
+
+
+    i = L, j = Mid + 1, t = 0;
+    //下面就是正常的归并排序代码
+    //因为计算这个最小和时 有排序的更利于我们解决问题，因为这样再我们去搜索合并2个区间时，比较左右2个时更加方便
+    //我们是 小 -》 大
+    while ((i <= Mid) && (j <= R)) {
+        if (datas[i] > datas[j]) {
+            aux_datas[t++] = datas[i++];
+        } else {
+            aux_datas[t++] = datas[j++];
+        }
+    }
+
+    while (i <= Mid) {
+        aux_datas[t++] = datas[i++];
+    }
+    while (j < R) {
+        aux_datas[t++] = datas[j++];
+    }
+    for (int k = 0; k < t; ++k) {
+        datas[L + k] = aux_datas[k];
+    }
+
+}
+
+//左半部分的逆序对和 + 右半部分的逆序对和 + 2边逆序对的和
+int sumSort(int L,int R)
+{
+    if (L >= R) {
+        return 0;//0 表示单独一个元素时没有逆序对存在
+    }
+    int mid = (L + R) / 2;
+    return sumSort(L, mid) + ((mid + 1), R) + mergeSum(L, mid, R);
+}
+
+int main(){
+    std::scanf("%d", &n);
+
+    for (int i = 0; i < n; ++i) {
+        std::scanf("%d", &datas[i]);
+    }
+
+    int result = sumSort(0, n - 1);
+
+    std::printf("result is %d.\n", result);
+
+    return 0;
+}
+
+//-----------------------------左神代码----------------------------------
+
+public class Code01_SmallSum {
+
+	public static int MAXN = 100001;
+
+	public static int[] arr = new int[MAXN];
+
+	public static int[] help = new int[MAXN];
+
+	public static int n;
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StreamTokenizer in = new StreamTokenizer(br);
+		PrintWriter out = new PrintWriter(new OutputStreamWriter(System.out));
+		while (in.nextToken() != StreamTokenizer.TT_EOF) {
+			n = (int) in.nval;
+			for (int i = 0; i < n; i++) {
+				in.nextToken();
+				arr[i] = (int) in.nval;
+			}
+			out.println(smallSum(0, n - 1));
+		}
+		out.flush();
+		out.close();
+	}
+
+	// 结果比较大，用int会溢出的，所以返回long类型
+	// 特别注意溢出这个点，笔试常见坑
+	// 返回arr[l...r]范围上，小和的累加和，同时请把arr[l..r]变有序
+	// 时间复杂度O(n * logn)
+	public static long smallSum(int l, int r) {
+		if (l == r) {
+			return 0;
+		}
+		int m = (l + r) / 2;
+		return smallSum(l, m) + smallSum(m + 1, r) + merge(l, m, r);
+	}
+
+	// 返回跨左右产生的小和累加和，左侧有序、右侧有序，让左右两侧整体有序
+	// arr[l...m] arr[m+1...r]
+	public static long merge(int l, int m, int r) {
+		// 统计部分
+		long ans = 0;
+		for (int j = m + 1, i = l, sum = 0; j <= r; j++) {
+			while (i <= m && arr[i] <= arr[j]) {
+				sum += arr[i++];
+			}
+			ans += sum;
+		}
+		// 正常merge
+		int i = l;
+		int a = l;
+		int b = m + 1;
+		while (a <= m && b <= r) {
+			help[i++] = arr[a] <= arr[b] ? arr[a++] : arr[b++];
+		}
+		while (a <= m) {
+			help[i++] = arr[a++];
+		}
+		while (b <= r) {
+			help[i++] = arr[b++];
+		}
+		for (i = l; i <= r; i++) {
+			arr[i] = help[i];
+		}
+		return ans;
+	}
