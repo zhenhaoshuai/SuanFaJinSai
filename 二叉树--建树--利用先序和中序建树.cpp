@@ -6,6 +6,7 @@ struct TreeNode {
     TreeNode(int num):val(num),Left(nullptr),Right(nullptr){}
 };
 
+
 /*
  * posA:根据前序 的起点位置
  * fatherNode:父节点的位置,因为 这个父节点的子节点 -》的子节点 也应该是在这个父节点的一侧的
@@ -48,7 +49,7 @@ TreeNode *preAndMidSequenceToTree(std::vector<int> &a, std::vector<int> b) {
     std::map<int,int> mapA;
     std::map<int,int> mapB;
     for (int i = 0; i < a.size(); ++i) {
-        mapA.insert({i, a[i]});
+        mapA.insert({i, a[i]});  //OMG~~~~当时忘了原来的vector就已经是 位置idx 和 元素值  的关系了
     }
     //first = 这个元素值,  second = 这个位于这个数组中的idx
     for (int i = 0; i < a.size(); ++i) {
