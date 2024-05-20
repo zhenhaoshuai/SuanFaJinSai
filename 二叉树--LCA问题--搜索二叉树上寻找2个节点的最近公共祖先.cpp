@@ -162,3 +162,13 @@ public class Code05_ValidateBinarySearchTree {
 
 }
 
+//---------------------------LeetCode------- ,和我的代码逻辑一样，但是判断条件少了很多
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (!root || (!(root->val < p->val && root->val < q->val) && !(root->val > p->val && root->val > q->val))) {
+            return root;
+        }
+        return root->val > p->val && root->val > q->val ? lowestCommonAncestor(root->left, p, q) :
+            lowestCommonAncestor(root->right, p, q);
+    }
+
+
