@@ -60,6 +60,52 @@ vector<vector<int>> permute(vector<int>& nums) {
     return result;
 }
 
+/*
+ * 解法二，由于 每个元素进行位移切换，这样进行每个元素都可以在每个位置进行表达
+ *              i : j
+ *  x1 x2 x3   0:0
+ *      x1 x2 x3  1:1
+ *          x1 x2 x3  2:2
+ *          x1 x2 x3  2:2 还原
+ *          x1 x2 x3  1:1
+ *          x1 x2 x3  0:0
+ *  x2 x1 x3   0:1
+ *      x3 x1 x2   0:2
+ *      x2 x1 x3   0:2 还原
+ *      x1 x2 x3   0:1
+ * x3 x2 x1   0:2
+ * x1 x2 x3   0:2 还原
+ * 
+ * 
+ * 
+ * 
+ * */
+
+
+void permuteSolve(vector<int>& source,vector<vector<int>>& result,int dimension)
+{
+    if (dimension >= source.size()) {
+        result.push_back(source);
+        return;
+    } else {
+        for (int i = dimension; i < source.size(); ++i) {
+            std::swap(source[i],source[dimension]);
+            permuteSolve(source, result, dimension + 1);
+            std::swap(source[i],source[dimension]); //就是一直在回溯，和移动 不同位置上的值，，，2次交换到回溯时，这个数组中所有的元素都 归位了
+        }
+    }
+}
+
+vector<vector<int>> permute(vector<int>& nums) {
+    vector<vector<int>> result;
+
+    std::sort(nums.begin(), nums.end());
+
+    permuteSolve(nums, result, 0);
+    return result;
+}
+
+
 
 //------------------------------------------左神
 // 没有重复项数字的全排列
