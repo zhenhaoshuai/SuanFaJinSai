@@ -75,7 +75,7 @@ vector<vector<int>> permute(vector<int>& nums) {
  *      x1 x2 x3   0:1
  * x3 x2 x1   0:2
  * x1 x2 x3   0:2 还原
- * 
+ *                         这样来回的切换同时，所有的元素在每个位置都试了
  * 
  * 
  * 
