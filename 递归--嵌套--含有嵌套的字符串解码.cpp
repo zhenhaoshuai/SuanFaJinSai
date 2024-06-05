@@ -26,7 +26,7 @@ string decodeStringSolve(string& str, int& pos) {
         if (isdigit(str[pos])) {
             if (!strTemp.empty()) {
                 content_stack.push_back(strTemp);
-                content_count.push_back(1); // 记为 1 次
+                content_count.push_back(1); // 记为 1 次---这样所有的内容都只 记录了一次
                 strTemp.clear();
             }
             
@@ -35,7 +35,7 @@ string decodeStringSolve(string& str, int& pos) {
         } else if ('[' == str[pos]) {
             ++pos;
             string nested = decodeStringSolve(str, pos);
-            for (int i = 0; i < num; ++i) {
+            for (int i = 0; i < num; ++i) {  //这里把所有的内容都放到一起去
                 strTemp += nested;
             }
             num = 0; // 重置 num
