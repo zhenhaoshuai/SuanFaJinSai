@@ -20,7 +20,7 @@
 
 /*
 还是用的那个 递归 嵌套的 套路
-
+这里就是把 A2B3C4  这样带括号的看成一个整体，然后就是 (ABC)2 看成 一体
 */
 map<string, int> countOfAtomsSolve(string &formula, int &pos) {
     map<string, int> result; // first : 元素内容, second : 元素个数
