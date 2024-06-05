@@ -23,15 +23,15 @@
 
 */
 map<string, int> countOfAtomsSolve(string &formula, int &pos) {
-    map<string, int> result;
+    map<string, int> result; // first : 元素内容, second : 元素个数
     string strTemp;
     int num = 0;
 
     while (pos < formula.size()) {
         if (isalpha(formula[pos])) {
-            if ((!strTemp.empty()) && (isupper(formula[pos]))) {
+            if ((!strTemp.empty()) && (isupper(formula[pos]))) { //针对 KN这种情况 和 K4N 这种4的情况
                 num = (num != 0) ? num : 1;
-                result[strTemp] += num;
+                result[strTemp] += num; //没有显式地初始化 result[strTemp]，它也会被默认初始化，然后执行加法操作
                 strTemp = "";
                 num = 0;
             }
@@ -41,7 +41,7 @@ map<string, int> countOfAtomsSolve(string &formula, int &pos) {
             num = (num * 10) + (formula[pos] - '0');
             ++pos;
         } else if ('(' == formula[pos]) {
-            if (!strTemp.empty()) {
+            if (!strTemp.empty()) {  //针对 K4N2(  K4N(  , (  这种4的情况
                 num = (num != 0) ? num : 1;
                 result[strTemp] += num;
                 strTemp = "";
