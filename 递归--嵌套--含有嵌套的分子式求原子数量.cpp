@@ -48,7 +48,7 @@ map<string, int> countOfAtomsSolve(string &formula, int &pos) {
                 num = 0;
             }
             ++pos; // move to next character after '('
-            map<string, int> resultTemp = countOfAtomsSolve(formula, pos); 
+            map<string, int> resultTemp = countOfAtomsSolve(formula, pos);  //结算时刻，把嵌套内的东西要 和 当前层的内容要合并
             int multiplier = 1;
             int numTemp = 0;
             while (pos < formula.size() && isdigit(formula[pos])) { // 这里在一直使用去判断它内容 所有字符串
