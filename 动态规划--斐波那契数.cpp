@@ -26,6 +26,7 @@ F(n) = F(n - 1) + F(n - 2)，其中 n > 1
 
 */
 
+//----------------------------------经典 for 写法
 #define ARRAY_LEN 100
 
 void fibBuild(int n,vector<int>& buffer) {
@@ -47,6 +48,31 @@ int fib(int n) {
     return buffer[n];    
 }
 
+//-----------------递归写法
+#define ARRAY_LEN 100
+
+void fibBuild(int& n,vector<int>& buffer,int pos) {
+    if (pos > n)
+    {
+        return;
+    }
+    buffer[pos] = buffer[pos-1] + buffer[pos-2]; //该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。
+    fibBuild(n, buffer, pos+1);
+}
+
+int fib(int n) {
+    if (n < 0) return -1; // 处理负输入
+    std::vector<int> buffer(ARRAY_LEN, -1); // 初始化buffer，长度为ARRAY_LEN，所有元素初始值为-1
+
+    // 如果缓存中没有这个数值，则生成它
+    int pos = 2;
+    if (buffer[n] == -1) {
+        buffer[0] = 0;
+        buffer[1] = 1;
+        fibBuild(n, buffer, pos);
+    }
+    return buffer[n];    
+}
 
 //--------------左神---
 
