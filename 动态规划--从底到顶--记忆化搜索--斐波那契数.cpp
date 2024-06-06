@@ -137,6 +137,8 @@ public class Code01_FibonacciNumber {
 		return dp[n];
 	}
 
+
+	// 这个方法 如果是我们只用求这个结果，不需要保留这张表的话，我们只需要 2个变量 把这个结果算出来就可以了
 	public static int fib4(int n) {
 		if (n == 0) {
 			return 0;
